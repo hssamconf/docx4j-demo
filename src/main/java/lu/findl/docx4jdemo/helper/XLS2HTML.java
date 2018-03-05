@@ -1,4 +1,4 @@
-package com.controller.sharepoint.convert;
+package lu.findl.docx4jdemo.helper;
 // https://gist.github.com/gitchandu/4491431
 
 import java.io.BufferedWriter;

@@ -1,4 +1,4 @@
-package com.controller.sharepoint.convert;
+package lu.findl.docx4jdemo.helper;
 
 //https://stackoverflow.com/questions/8354568/how-to-convert-a-ppt-file-into-pdf-file-in-java
 // Sinon regarder sur Github : https://github.com/yeokm1/docs-to-pdf-converter/blob/master/docs-to-pdf-converter/src/com/yeokhengmeng/docstopdfconverter/PptxToPDFConverter.java

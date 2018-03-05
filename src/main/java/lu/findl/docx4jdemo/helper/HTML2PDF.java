@@ -1,4 +1,4 @@
-package com.controller.sharepoint.convert;
+package lu.findl.docx4jdemo.helper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,7 +28,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 public class HTML2PDF {
 
@@ -90,12 +90,11 @@ public class HTML2PDF {
                     new Phrase(String.valueOf(writer.getPageNumber() - 1)),2, 2, 0);
         }
     }
-	
-	
-	
-	 /**
-     * Creates a PDF
-     * @param file
+
+
+    /**
+     * @param inputPath
+     * @param outputPath
      * @throws IOException
      * @throws DocumentException
      */
@@ -113,7 +112,7 @@ public class HTML2PDF {
         String html = Utilities.readFileToString(inputPath);
        
         // decode html (NIA ajout du 04/11/2016)
-        html = StringEscapeUtils.unescapeHtml(html);
+        html = StringEscapeUtils.unescapeHtml3(html);
         ElementList list = XMLWorkerHelper.parseToElementList(html, css);
         for (Element e : list) {
             document.add(e);
