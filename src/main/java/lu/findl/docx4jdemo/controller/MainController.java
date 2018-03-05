@@ -1,6 +1,5 @@
 package lu.findl.docx4jdemo.controller;
 
-import lu.findl.docx4jdemo.helper.XLStoPDF;
 import org.docx4j.Docx4J;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.SpreadsheetMLPackage;
@@ -12,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xlsx4j.jaxb.Context;
 import org.xlsx4j.sml.*;
+import lu.findl.docx4jdemo.helper.DOC2PDF;
+import lu.findl.docx4jdemo.helper.HTML2PDF;
+import lu.findl.docx4jdemo.helper.PPT2PDF;
+import lu.findl.docx4jdemo.helper.XLS2HTML;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +23,7 @@ import java.io.OutputStream;
 @RestController
 public class MainController {
 
+    /*
     private static void addContent(WorksheetPart sheet) {
 
         // Minimal content already present
@@ -57,8 +61,8 @@ public class MainController {
         return cell;
 
     }
-
-    @RequestMapping("/docx")
+    */
+    @RequestMapping(value={"/docx","/doc"})
     public String handlingDocx() {
         WordprocessingMLPackage wordMLPackage = null;
         try {
@@ -72,9 +76,12 @@ public class MainController {
 
             // Convertion du document générer en pdf
             String outputfilepath = System.getProperty("user.dir") + "\\OUT_hello_doc.pdf";
+            /*
             OutputStream os = new java.io.FileOutputStream(outputfilepath);
             Docx4J.toPDF(wordMLPackage, os);
             os.close();
+            */
+            DOC2PDF.convert(filename, outputfilepath);
             System.out.println("DOCX Converted .." + outputfilepath);
 
         } catch (Docx4JException | IOException e) {
@@ -84,7 +91,7 @@ public class MainController {
         return "Greetings from Spring Boot!";
     }
 
-    @RequestMapping("/xlsx")
+    @RequestMapping(value={"/xlsx","/xls"})
     public String handlingXlsx() {
         try {
             // Exemple de creation d'un fichier xlsx
@@ -97,8 +104,13 @@ public class MainController {
             System.out.println("XSLX Saved .." + outputfilepath);
 
             //Converting xlsx to pdf using itext
+            String outputhtmlfilepath = System.getProperty("user.dir") + "\\OUT_hello_xsl.html";
             String outputpdffilepath = System.getProperty("user.dir") + "\\OUT_hello_xsl.pdf";
-            XLStoPDF.convert(outputfilepath, outputpdffilepath);
+            
+            // TODO : Create Helper XLS2HTML2PDF direct.
+            //XLStoPDF.convert(outputfilepath, outputpdffilepath);
+            XLS2HTML.convert(outputfilepath, outputhtmlfilepath);
+		    HTML2PDF.convert(outputhtmlfilepath, outputpdffilepath);
 
         } catch (Exception e) {
             e.printStackTrace();
